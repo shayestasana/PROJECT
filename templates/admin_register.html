@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row form-row">
         <div class="col-lg-4 ">
-            <h1 class="my-4 text-primary">Register An Account</h1>
+            <h1 class="my-4 text-primary">Register As Admin</h1>
             {% if error_list %}
             {% for msg in error_list %}
             <p class="text-danger text-small">
@@ -13,7 +13,6 @@
             </p>
             {% endfor %}
             {% endif %}
-            
 
             <form class="shadow-lg p-3 rounded bg-light" method="POST">
                 <div class="mb-3">
@@ -22,8 +21,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" name="username">
+                    <label for="adminname" class="form-label">Adminname</label>
+                    <input type="text" class="form-control" id="adminname" name="adminname">
                 </div>
 
                 <div class="mb-3">
@@ -38,7 +37,7 @@
                     <input type="password" class="form-control" id="confirmpass" name="confirmpass">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <a href="admin_register">Register as admin</a>
+    
             </form>
 
         </div>

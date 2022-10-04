@@ -20,11 +20,15 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(64), nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.now)
-
+    
+class Admin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    adminname = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(64), nullable=False)
+    created_on = db.Column(db.DateTime, default=datetime.now)    
     def __str__(self):
         return f'{self.username}({self.id})'
-
-
 
 def create_app():
     app = Flask(__name__)
@@ -35,6 +39,15 @@ def create_app():
     db.init_app(app)
     return app
 
+def create_adm():
+    adm = Flask(__name__)
+    adm.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/app.sqlite'
+    adm.config['SQLALCHEMY_ECHO'] = True
+    adm.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    adm.secret_key = 'supersecretkeythatnooneknows'
+    db.init_app(adm)
+    return app      
+
 app = create_app()
 
 def create_login_session(user: User):
@@ -42,6 +55,7 @@ def create_login_session(user: User):
     session['username'] = user.username
     session['email'] = user.email
     session['is_logged_in'] = True
+   
 
 def destroy_login_session():
     if 'is_logged_in' in session:
@@ -108,6 +122,35 @@ def register():
             errors.append('Fill all the fields')
             flash('user account could not be created','warning')
     return render_template('register.html', error_list=errors)
+
+@app.route('/admin_register', methods=['GET','POST'])
+def admin_register():
+    errors = []
+    if request.method == 'POST': # if form was submitted
+        adminname = request.form.get('adminname')
+        email = request.form.get('email')
+        pwd = request.form.get('password')
+        cpwd = request.form.get('confirmpass')
+        print(adminname, email, pwd, cpwd)
+        if adminname and email and pwd and cpwd:
+            if len(adminname)<2:
+                errors.append("Adminname is too small")
+            if len(email) < 11 or '@' not in email:
+                errors.append("Email is invalid")
+            if len(pwd) < 6:
+                errors.append("Password should be 6 or more chars")
+            if pwd != cpwd:
+                errors.append("passwords do not match")
+            if len(errors) == 0:
+                admin = Admin(adminname=adminname, email=email, password=pwd)
+                db.session.add(admin)
+                db.session.commit()
+                flash('Admin account created','success')
+                return redirect('/login')
+        else:
+            errors.append('Fill all the fields')
+            flash('admin account could not be created','warning')
+    return render_template('admin_register.html', error_list=errors)
 
 @app.route('/logout')
 def logout():
