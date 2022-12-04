@@ -2,6 +2,7 @@ from unicodedata import category
 from flask import Flask, render_template, request, redirect, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import random
 
 db = SQLAlchemy()
 
@@ -214,10 +215,27 @@ def admin():
 @app.route('/user/dashboard', methods=['GET','POST'])    
 def user():
     if session.get('is_logged_in', True):
-        return render_template('user_dashboard.html')
+        score =  Score.query.filter_by(user_id=session['id']).first()
+        # get names of categories from quiz
+        categories = Quiz.query.with_entities(Quiz.category).distinct().all()
+        categories = [category[0] for category in categories]
+        return render_template('user_dashboard.html', score=score, categories=categories)
+
     else:
         flash('Login in admin to access this content','danger')
         return redirect('/')        
+
+@app.route('/quiz/start/<category>', methods=['GET','POST'])
+def start_quiz(category):
+    if session.get('is_logged_in', True):
+        questions = Quiz.query.filter_by(category=category).all()
+        # shuffle questions
+        random.shuffle(questions)
+        # launch camera access py and pass the data like userid and category and question
+        return redirect('/user/dashboard')
+    else:
+        flash('Login in admin to access this content','danger')
+        return redirect('/')
 
 @app.route('/logout')
 def logout():
