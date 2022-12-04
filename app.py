@@ -12,6 +12,7 @@ to create the project database, open terminal
     from app import app, db
     with app.app_context():
         db.create_all()
+    with app.app_context(): db.create_all()
 - enter twice to confirm
 '''
 
@@ -104,7 +105,7 @@ def login():
                     if user.password == password:
                         create_login_session(user)
                         flash('Login Successfull', "success")
-                        return redirect('/')
+                        return redirect('/user/dashboard')
                     else:
                         errors['password'] = 'Password is invalid'
                 else:
@@ -210,6 +211,13 @@ def admin():
     else:
         flash('Login in admin to access this content','danger')
         return redirect('/')
+@app.route('/user/dashboard', methods=['GET','POST'])    
+def user():
+    if session.get('is_logged_in', True):
+        return render_template('user_dashboard.html')
+    else:
+        flash('Login in admin to access this content','danger')
+        return redirect('/')        
 
 @app.route('/logout')
 def logout():
