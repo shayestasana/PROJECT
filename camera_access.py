@@ -59,8 +59,9 @@ class Score(Base):
 
 # For webcam input:
 cap = cv2.VideoCapture(0)
-question = 1
+question = 0
 quiz_started = 0
+question_list = []
 
 # functions
 def open_db(path = 'database/app.sqlite'):
@@ -159,7 +160,6 @@ def display_end_screen(image, used_Id):
     h, w, _ = image.shape
     cv2.putText(image, "Quiz Ended", (w // 2 - 200, h // 2), font, 1, (0,0,0), 2, cv2.LINE_AA)
     cv2.putText(image, f"Your Score is {score.score}", (w // 2 - 200, h // 2 + 50), font, 1, (0,0,0), 2, cv2.LINE_AA)
-    
     return image
 
 
@@ -194,8 +194,9 @@ def check_answer(question, option_selected, user_id):
     sleep(1)
     return question + 1
 
-def start_ar_quiz(user_id):
-    global question
+def start_ar_quiz(user_id, questions):
+    global question, question_list, quiz_started
+    question_list = questions
     with mp_hands.Hands(
         model_complexity=0,
         min_detection_confidence=0.5,
@@ -263,14 +264,16 @@ def start_ar_quiz(user_id):
                                 cv2.putText(image, "Pointer", (28, 240), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
                         elif quiz_started == 2:
                             # display end screen
-                            image = display_end_screen(image, w, h, hand_landmarks)
+                            image = display_end_screen(image, user_id)
                     except Exception as e:
-                        quiz_started == 2
                         print(e)
             # display quiz ui
             try:
                 if quiz_started == 1:
-                    image = display_question(image,question, user_id)
+                    if question < len(question_list):
+                        image = display_question(image,question_list[question], user_id)
+                    else:
+                        quiz_started = 2
                 if quiz_started == 0:
                     image = display_welcome_screen(image)
                 if quiz_started == 2:
@@ -282,6 +285,7 @@ def start_ar_quiz(user_id):
                 break
             
     cap.release()
+    cv2.destroyAllWindows()
 
 if __name__ == '__main__':
     start_ar_quiz(user_id=1)
