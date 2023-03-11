@@ -14,6 +14,7 @@ score_start = True
 
     
 font = cv2.FONT_HERSHEY_SIMPLEX
+font_size=1
 red = (0, 0, 255)
 green = (255,127,80)
 blue= (0,178,238)
@@ -78,7 +79,7 @@ def add_breaks(question, limit=30):
         up_ques += temp[:limit].strip() + '\n'
         temp = temp[limit:]
     # print(up_ques + '\n' + temp)
-    return up_ques + '\n' + temp
+    return up_ques+ temp
 
 
 def display_question(image, question=1, user_id=None):
@@ -98,32 +99,65 @@ def display_question(image, question=1, user_id=None):
     c = (quiz.option_C)
     d = (quiz.option_D)
     cat = quiz.category
-    # print(q,a,b,c,d,cat,quiz.answer)
-    cv2.rectangle(image, (0,h-150),(w,h),(0,0,0),-1)
-    # cv2.putText(image, q, (0, h -100), font, 1, white, 2, cv2.LINE_AA)
-    # display question
-    for i, line in enumerate(q.split('\n')):
-        cv2.putText(image, line, (0, h - 100 + i * 30), font, 1, white, 2, cv2.LINE_AA)
-    cv2.rectangle(image, (20,20 ), (200,100), green, -1)
 
     # display category
-    cv2.putText(image, cat, (30, 70), font, .7, (0,0,0), 2, cv2.LINE_AA)
-    cv2.rectangle(image, (230, 20), (410,100), red, -1)
+    rw = 180
+    cv2.rectangle(image, (20,20 ), (rw+20,100), green, -1)
+    cv2.putText(image, cat, (30, 70), font, font_size, (0,0,0), 2, cv2.LINE_AA)
+
+    # question box
+    cv2.rectangle(image, (0,h-90),(w,h),(0,0,0),-1) # bottom black rectangle
+    fnt_size= font_size
+    txtsize = cv2.getTextSize(q, font, fnt_size, 2)[0]
+    while txtsize[0] > w - 20:
+        fnt_size -= 0.1
+        txtsize = cv2.getTextSize(q, font, fnt_size, 2)[0]
+    cv2.putText(image, q, (0, h-70), font, fnt_size, white, 2, cv2.LINE_AA)
+    
 
     # display option_A
-    # cv2.putText(image, a, (w - 400, 50), font, .7, (0,0,0), 2, cv2.LINE_AA)
-    for i, line in enumerate(a.split('\n')):
-       cv2.putText(image, line, (w-400,50), font, .7, (0,0,0), 2, cv2.LINE_AA)
-    cv2.rectangle(image, (440, 20), (620,100), red, -1)
-    
+    cv2.rectangle(image, (230, 20), (rw+230,100), red, -1)
+    fnt_size= font_size
+    txtsize = cv2.getTextSize(a, font, fnt_size, 1)[0]
+    print(f'option A: {txtsize[0]}')
+    while txtsize[0] > rw - 10:
+        fnt_size -= 0.1
+        txtsize = cv2.getTextSize(a, font, fnt_size, 1)[0]
+        print(f'option A: {txtsize[0]}')
+    cv2.putText(image, a, (w-400, 50), font, fnt_size, (0,0,0), 1, cv2.LINE_AA)
+
     # display option_B
-    cv2.putText(image, b, (w - 190, 50), font, .7, (0,0,0), 2, cv2.LINE_AA)
+    cv2.rectangle(image, (440, 20), (rw+440,100), red, -1)
+    fnt_size= font_size
+    txtsize = cv2.getTextSize(b, font, fnt_size, 1)[0]
+    print(f'option B: {txtsize[0]}')
+    while txtsize[0] > rw - 10:
+        fnt_size -= 0.1
+        txtsize = cv2.getTextSize(b, font, fnt_size, 1)[0]
+        print(f'option B: {txtsize[0]}')
+    cv2.putText(image, b, (w - 190, 50), font, fnt_size, (0,0,0), 1, cv2.LINE_AA)
+    
+    # display option_D
+    cv2.rectangle(image, (230,130), (rw+230,210), red, -1)
+    fnt_size= font_size
+    txtsize = cv2.getTextSize(c, font, fnt_size, 1)[0]
+    while txtsize[0] > rw - 10:
+        fnt_size -= 0.1
+        txtsize = cv2.getTextSize(c, font, fnt_size, 1)[0]
+    cv2.putText(image, c, (w -400, 160), font, fnt_size, (0,0,0), 1, cv2.LINE_AA)
+    
+    # display option_D
+    cv2.rectangle(image, (440, 130), (rw+440,210), red, -1)
+    fnt_size= font_size
+    txtsize = cv2.getTextSize(d, font, fnt_size, 1)[0]
+    while txtsize[0] > rw - 10:
+        fnt_size -= 0.1
+        txtsize = cv2.getTextSize(d, font, fnt_size, 1)[0]
+    cv2.putText(image, d, (w - 190, 160), font, fnt_size, (0,0,0), 1, cv2.LINE_AA)
+    
+    # display option_score
     cv2.rectangle(image, (20, 130), (200,170), green, -1)
-    cv2.putText(image, f"Score {score}", (30, 155), font, .7,(0,0,0), 2, cv2.LINE_AA)
-    cv2.rectangle(image, (230,130), (410,210), red, -1)
-    cv2.putText(image, c, (w -400, 160), font, .7, (0,0,0), 2, cv2.LINE_AA)
-    cv2.rectangle(image, (440, 130), (620,210), red, -1)
-    cv2.putText(image, d, (w - 190, 160), font, .7, (0,0,0), 2, cv2.LINE_AA)
+    cv2.putText(image, f"Score {score}", (30, 155), font, font_size,(0,0,0), 2, cv2.LINE_AA)
     return image
 
 def distanceCalculate(p1, p2):
@@ -150,16 +184,16 @@ def check_gesture_to_start(image, w, h, hand_landmarks):
 
 def display_welcome_screen(image):
     h, w, _ = image.shape
-    cv2.putText(image, "Welcome to the Quiz", (w // 2 - 200, h // 2), font, 1, (0,0,0), 2, cv2.LINE_AA)
-    cv2.putText(image, "Press the Index finger to start the quiz", (w // 2 - 300, h // 2 + 50), font, .7, (0,0,0), 2, cv2.LINE_AA)
+    cv2.putText(image, "Welcome to the Quiz", (w // 2 - 200, h // 2), font, font_size, (0,0,0), 2, cv2.LINE_AA)
+    cv2.putText(image, "Press the Index finger to start the quiz", (w // 2 - 300, h // 2 + 50), font, font_size, (0,0,0), 2, cv2.LINE_AA)
     return image
 
 def display_end_screen(image, used_Id):
     # display end message and score
     score = Score.query.filter_by(user_id=used_Id).first()
     h, w, _ = image.shape
-    cv2.putText(image, "Quiz Ended", (w // 2 - 200, h // 2), font, 1, (0,0,0), 2, cv2.LINE_AA)
-    cv2.putText(image, f"Your Score is {score.score}", (w // 2 - 200, h // 2 + 50), font, 1, (0,0,0), 2, cv2.LINE_AA)
+    cv2.putText(image, "Quiz Ended", (w // 2 - 200, h // 2), font, font_size, (0,0,0), 2, cv2.LINE_AA)
+    cv2.putText(image, f"Your Score is {score.score}", (w // 2 - 200, h // 2 + 50), font, font_size, (0,0,0), 2, cv2.LINE_AA)
     return image
 
 
