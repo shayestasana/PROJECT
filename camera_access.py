@@ -93,15 +93,16 @@ def display_question(image, question=1, user_id=None):
         score = 0
     session.close()
 
-    q = add_breaks(quiz.question)
-    a = add_breaks(quiz.option_A, limit=15)
-    b = (quiz.option_B)
-    c = (quiz.option_C)
-    d = (quiz.option_D)
+    q = quiz.question
+    a = quiz.option_A
+    b = quiz.option_B
+    c = quiz.option_C
+    d = quiz.option_D
     cat = quiz.category
 
     # display category
     rw = 180
+    print(q)
     cv2.rectangle(image, (20,20 ), (rw+20,100), green, -1)
     cv2.putText(image, cat, (30, 70), font, font_size, (0,0,0), 2, cv2.LINE_AA)
 
