@@ -11,8 +11,6 @@ mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
 
 score_start = True
-
-    
 font = cv2.FONT_HERSHEY_SIMPLEX
 font_size=1
 red = (0, 0, 255)
@@ -102,7 +100,7 @@ def display_question(image, question=1, user_id=None):
 
     # display category
     rw = 180
-    print(q)
+    # print(q)
     cv2.rectangle(image, (20,20 ), (rw+20,100), green, -1)
     cv2.putText(image, cat, (30, 70), font, font_size, (0,0,0), 2, cv2.LINE_AA)
 
@@ -120,22 +118,22 @@ def display_question(image, question=1, user_id=None):
     cv2.rectangle(image, (230, 20), (rw+230,100), red, -1)
     fnt_size= font_size
     txtsize = cv2.getTextSize(a, font, fnt_size, 1)[0]
-    print(f'option A: {txtsize[0]}')
+    # print(f'option A: {txtsize[0]}')
     while txtsize[0] > rw - 10:
         fnt_size -= 0.1
         txtsize = cv2.getTextSize(a, font, fnt_size, 1)[0]
-        print(f'option A: {txtsize[0]}')
+        # print(f'option A: {txtsize[0]}')
     cv2.putText(image, a, (w-400, 50), font, fnt_size, (0,0,0), 1, cv2.LINE_AA)
 
     # display option_B
     cv2.rectangle(image, (440, 20), (rw+440,100), red, -1)
     fnt_size= font_size
     txtsize = cv2.getTextSize(b, font, fnt_size, 1)[0]
-    print(f'option B: {txtsize[0]}')
+    # print(f'option B: {txtsize[0]}')
     while txtsize[0] > rw - 10:
         fnt_size -= 0.1
         txtsize = cv2.getTextSize(b, font, fnt_size, 1)[0]
-        print(f'option B: {txtsize[0]}')
+        # print(f'option B: {txtsize[0]}')
     cv2.putText(image, b, (w - 190, 50), font, fnt_size, (0,0,0), 1, cv2.LINE_AA)
     
     # display option_D
@@ -191,7 +189,8 @@ def display_welcome_screen(image):
 
 def display_end_screen(image, used_Id):
     # display end message and score
-    score = Score.query.filter_by(user_id=used_Id).first()
+    session = open_db()
+    score = session.query(Score).filter(Score.user_id == used_Id).order_by(Score.id.desc()).first()
     h, w, _ = image.shape
     cv2.putText(image, "Quiz Ended", (w // 2 - 200, h // 2), font, font_size, (0,0,0), 2, cv2.LINE_AA)
     cv2.putText(image, f"Your Score is {score.score}", (w // 2 - 200, h // 2 + 50), font, font_size, (0,0,0), 2, cv2.LINE_AA)
@@ -222,7 +221,7 @@ def check_answer(question, option_selected, user_id):
     else:
         pass
     # save score
-    print(score)
+    # print(score)
     session.add(score)
     session.commit()
     session.close()
@@ -300,6 +299,7 @@ def start_ar_quiz(user_id, questions):
                         elif quiz_started == 2:
                             # display end screen
                             image = display_end_screen(image, user_id)
+                        print(f'quiz_started =  {quiz_started}')
                     except Exception as e:
                         print(e)
             # display quiz ui
@@ -309,6 +309,7 @@ def start_ar_quiz(user_id, questions):
                         image = display_question(image,question_list[question], user_id)
                     else:
                         quiz_started = 2
+                        print(f'Quiz ended', quiz_started)
                 if quiz_started == 0:
                     image = display_welcome_screen(image)
                 if quiz_started == 2:
