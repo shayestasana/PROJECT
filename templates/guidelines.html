@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,100,900);
+
+    .transition,
+    p,
+    ul li i:before,
+    ul li i:after {
+      transition: all 0.25s ease-in-out;
+    }
+
+    .flipIn,
+    h1,
+    ul li {
+      animation: flipdown 0.5s ease both;
+    }
+
+    .no-select,
+    h2 {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    html {
+      width: 100%;
+      height: 100%;
+
+      overflow-y: scroll;
+      background-image: url("http://sebsauvage.net/galerie/photos/Wallpapers/vladstudio.com/vladstudio_where_tahrs_live_2880x1800_signed.jpg");
+      font-family: "Titillium Web", sans-serif;
+      color: #cf4f4f;
+
+    }
+
+    body {
+      min-height: 0;
+      display: inline-block;
+      position: relative;
+      left: 50%;
+      margin-top: px;
+      transform: translate(-50%, 0);
+      /* box-shadow: 0 10px 0 0 #ff6873 inset; */
+      background-color: #f8f5f8;
+      /* max-width: 100%; */
+      padding: 30px;
+      background-image: url('https://img.freepik.com/free-photo/abstract-blur-empty-green-gradient-studio-well-use-as-background-website-template-frame-business-report_1258-52616.jpg?w=740&t=st=1681535005~exp=1681535605~hmac=a1b5786e02abd9d45025189c446bd3865ffebb35bb34e22510b0bd8b45b06b6c');
+
+    }
+
+    @media (max-width: 550px) {
+      body {
+        box-sizing: border-box;
+        transform: translate(0, 0);
+        /* max-width: 100%; */
+        min-height: 100%;
+        margin: 0;
+        left: 0;
+      }
+    }
+
+    .rules h1,
+    h2 {
+      color: #111010;
+    }
+
+    .rules h1 {
+      text-transform: uppercase;
+      font-family: 'Roboto', sans-serif;
+      font-size: 36px;
+      line-height: 42px;
+      letter-spacing: 3px;
+      font-weight: 100;
+    }
+
+    .rules h2 {
+      font-size: 26px;
+      line-height: 34px;
+      font-weight: 300;
+      letter-spacing: 1px;
+      display: block;
+      background-color: #b0c7dd;
+      margin: 0;
+      cursor: pointer;
+      width: 75%;
+      margin-left: 15%;
+      margin-right: 12%;
+    }
+
+    .rules p {
+      color: rgba(15, 14, 14, 0.8);
+      font-size: 19px;
+      line-height: 26px;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      max-height: 1200px;
+      opacity: 1;
+      transform: translate(0, 0);
+      margin-top: 14px;
+      z-index: 2;
+      width: 70%;
+      margin-left: 15%;
+    }
+
+    .rules ul {
+      list-style: none;
+      perspective: 900;
+      padding: 0;
+      margin: 0;
+    }
+
+    .rules ul li {
+      position: relative;
+      padding: 0;
+      margin: 0;
+      padding-bottom: 4px;
+      padding-top: 18px;
+      border-top: 1px solid #ebe5e5;
+    }
+
+    .rules ul li:nth-of-type(1) {
+      animation-delay: 0.5s;
+    }
+
+    .rules ul li:nth-of-type(2) {
+      animation-delay: 0.75s;
+    }
+
+    .rules ul li:nth-of-type(3) {
+      animation-delay: 1s;
+    }
+
+    .rules ul li:last-of-type {
+      padding-bottom: 0;
+    }
+
+    .rules ul li i {
+      position: absolute;
+      transform: translate(-6px, 0);
+      margin-top: 16px;
+      margin-right: 12%;
+      right: 0;
+    }
+
+    .rules ul li i:before,
+    ul li i:after {
+      content: "";
+      position: absolute;
+      background-color: #f7f2f2;
+      width: 3px;
+      height: 9px;
+
+    }
+
+    .rules ul li i:before {
+      transform: translate(-2px, 0) rotate(45deg);
+    }
+
+    .rules ul li i:after {
+      transform: translate(2px, 0) rotate(-45deg);
+    }
+
+    .rules ul li input[type=checkbox] {
+      position: absolute;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      opacity: 0;
+    }
+
+    .rules ul li input[type=checkbox]:checked~p {
+      margin-top: 0;
+      max-height: 0;
+      opacity: 0;
+      transform: translate(0, 50%);
+    }
+
+    .rules ul li input[type=checkbox]:checked~i:before {
+      transform: translate(2px, 0) rotate(45deg);
+    }
+
+    .rules ul li input[type=checkbox]:checked~i:after {
+      transform: translate(-2px, 0) rotate(-45deg);
+    }
+
+    @keyframes flipdown {
+      0% {
+        opacity: 0;
+        transform-origin: top center;
+        transform: rotateX(-90deg);
+      }
+
+      5% {
+        opacity: 1;
+      }
+
+      80% {
+        transform: rotateX(8deg);
+      }
+
+      83% {
+        transform: rotateX(6deg);
+      }
+
+      92% {
+        transform: rotateX(-3deg);
+      }
+
+      100% {
+        transform-origin: top center;
+        transform: rotateX(0deg);
+      }
+    }
+
+    .ewlink {
+      text-decoration: none;
+      color: #ff6873;
+    }
+
+    .container {
+      width: 50%;
+      margin-bottom: 30px;
+      margin-top: 30px;
+      margin-left: 40%;
+
+    }
+  </style>
+
+
+
+</head>
+
+<body>
+
+  <!-- Image and text -->
+
+  <div class="rules">
+
+    <!--****************
+        Centered Title
+        Tags used:
+              <center>
+              <h1>
+        *****************-->
+    <center>
+      <h1 style="color:rgb(180, 39, 39);">
+        <b>
+          Instructions and Guidelines
+        </b>
+      </h1>
+    </center>
+
+    <!--****************
+        Welcome Text
+        Tags used:
+              <p>    | Paragraph Tag.
+              <a>    | Link Tag. 
+              <i>    | Italics.
+              <br>   | Breaks up text.
+        *****************-->
+    <p>
+      Welcome!
+      <br>
+      <!--BREAK-->
+      <br>
+      We hope it will be a new and amazing experience for you.
+      <br>
+      <!--BREAK-->
+      <br>
+      <b>Read and understand the following Instructions and Slides before starting the quiz.</b>
+
+      <br>
+      <!--BREAK-->
+      <br>
+    </p>
+    <label
+      style="position: absolute; color:rgb(11, 12, 11); font-size: 40px; margin-top: 12%;margin-left: 15%; display: flex; flex-wrap: wrap;">
+      Follow these</br>steps 👉</label>
+
+    <div class="container">
+
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+          <li data-target="#myCarousel" data-slide-to="3"></li>
+          <li data-target="#myCarousel" data-slide-to="4"></li>
+          <li data-target="#myCarousel" data-slide-to="5"></li>
+          <li data-target="#myCarousel" data-slide-to="6"></li>
+          <li data-target="#myCarousel" data-slide-to="7"></li>
+          <li data-target="#myCarousel" data-slide-to="8"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <img src="/static/images/1.png" alt="1" style="width:100%;">
+          </div>
+
+          <div class="item">
+            <img src="/static/images/2.png" alt="2" style="width:100%;">
+          </div>
+
+          <div class="item">
+            <img src="/static/images/3.png" alt="3" style="width:100%;">
+          </div>
+
+          <div class="item">
+            <img src="/static/images/4.png" alt="4" style="width:100%;">
+          </div>
+
+          <div class="item">
+            <img src="/static/images/5.png" alt="5" style="width:100%;">
+          </div>
+
+          <div class="item">
+            <img src="/static/images/6.png" alt="6" style="width:100%;">
+          </div>
+
+          <div class="item">
+            <center>
+            <video id="myVideo" width="100%" height="450">
+              <source src="/static/video/video1.mp4" type="video/mp4"></video>
+              <div style="margin-bottom: px;">
+                <button onclick="playVid()" type="button" style="background-color: #76b2ee; color: #f7f2f2;">Play ▶</button>
+                <button onclick="pauseVid()" type="button" style="background-color: #76b2ee; color: white;">Pause ⏸</button></div></center>
+          </div>
+
+          <div class="item">
+            <img src="/static/images/7.png" alt="7" style="width:100%;">
+          </div>
+
+          <div class="item">
+            <img src="/static/images/8.png" alt="8" style="width:100%;">
+          </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+
+    <ul>
+      <li>
+        
+        <h2>General Instructions for attempting the Quiz</h2>
+        
+        <p>
+          <br> • Firstly select the quiz <b>Category</b> that you want to attempt.
+          <br> • Once you select <b>Start</b> on web page, a camera window will appear displaying a text at the centre
+          of the screen:
+          <b>"Welcome to the Quiz, Keep your index and middle finger close to each other to start the Quiz" </b>
+          <br> • (Take reference from the slides above).
+          <br> • Do as instructed on the screen to start the quiz.
+          <br> • The quiz starts.
+          <br> • For Selecting an option, keep the index finger and the middle finger close to each other so that they
+          touch each other then only these two fingers work as a selector.
+          <br> • <b>As soon as you select the option of any question the next question pops up on its own. So, you are
+            supposed to move the middle finger and the index finger away from each other instantly after selecting an
+            option.</b>
+          <br> • When the quiz finishes, you have to press <b>Esc</b> button to close the quiz window.
+        </p>
+      </li>
+    </ul>
+  </div>
+
+
+</body>
+
+<script> 
+  var vid = document.getElementById("myVideo"); 
+  
+  function playVid() { 
+    vid.play(); 
+  } 
+  function pauseVid() { 
+    vid.pause(); 
+  } 
+</script> 
+
+</html>

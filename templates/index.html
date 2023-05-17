@@ -1,18 +1,174 @@
 {% extends 'layout/base.html' %}
 
-{% block body %}
 
+{% block body %}
+<div>
 <div class="bod">
 <h1 class ="dan"><center></center></h1></div>
 <div class = "mage">
 <div class="container-fluid">
-  <h1>AR Quiz using OpenCV and Gesture Recognition</h1>
-  <p class = "rede">Welcome to the world of Quizzes. Augmented Reality Quiz is a hand-gesture-based quiz. Augmented reality (AR) is the real-time use of information in the form of text, graphics, audio and other virtual enhancements integrated with real-world objects. In this website, you can Create Quizzes and add questions as well as Login and attend these quizzes. Register and Login at any time, anywhere and take objective quizzes just by using hand gestures, without touching the screen </p>
+  <h1 style="display: flex; flex-wrap: wrap;">AR Quiz using OpenCV and Gesture Recognition </h1>
+  <p class = "rede">Welcome to the world of Quizzes. Augmented Reality Quiz is a hand-gesture-based quiz. Augmented reality (AR) is the real-time use of information in the form of text, graphics, audio and other virtual enhancements integrated with real-world objects. In this website, 
+    you can Create Quizzes and add questions as well as Login and attend these quizzes.
+     Register and Login at any time, anywhere and take objective quizzes just by using hand gestures,
+      without touching the screen </p>
+      
+
 </div>
 </div>
+<div style="margin-left: 13%; padding: 20px;">
+  <a href="/register" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Register for Test</a>
 </div>
 
-<p>
+<div>
+  <label id="lblGreetings"></label>
+
+<h3 style="margin-top: 20px; margin-left: 15%;">For Quiz Instruction and Guidelines- <button style="background-color: #f16c38;"> <a href="/guidelines" class="nav-link">Click here</a></button></h3>
+
+</div>
+
+
+  <!-- Footer -->
+  <footer
+          class="text-center text-lg-start text-white"
+          style="background-color: #1c2331; margin-top: 23%;"
+          >
+    <!-- Section: Social media -->
+    <section
+             class=""
+             style= >
+      <!-- Left -->
+      <!-- <div class="me-5">
+        <span>Get connected with us on social networks:</span>
+      </div> -->
+      <!-- Left -->
+
+      <!-- Right -->
+      <div>
+        <a href="" class="text-white me-4">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="" class="text-white me-4">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="" class="text-white me-4">
+          <i class="fab fa-google"></i>
+        </a>
+        <a href="" class="text-white me-4">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="" class="text-white me-4">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="" class="text-white me-4">
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold"style="color:aqua  ; font-size:30px">AR Quiz</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+            <p>
+              From here you can give online quizes with more interactive features by your hand movement ,
+               first go register yourself and choose your subject of test
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold"style="color:rgb(245, 232, 119);">Subjects</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+            <p>
+              <a href="#!" class="text-white">Python</a>
+            </p>
+            <p>
+              <a href="#!" class="text-white">Java</a>
+            </p>
+            <p>
+              <a href="#!" class="text-white">Aptitude</a>
+            </p>
+            <p>
+              <a href="#!" class="text-white">Data Structures</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold" style="color:rgb(245, 232, 119);">Social links</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+            <p>
+              <a href="#!" class="text-white">Instagram</a>
+            </p>
+            <p>
+              <a href="#!" class="text-white">Twitter</a>
+            </p>
+            <p>
+              <a href="#!" class="text-white">Facebook</a>
+            </p>
+            <p>
+              <a href="#!" class="text-white">Help</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold" style="color:rgb(238, 127, 99);">Contact</h6>
+            <hr
+                class="mb-4 mt-0 d-inline-block mx-auto"
+                style="width: 60px; background-color: #7c4dff; height: 2px"
+                />
+            <p><i class="fas fa-home mr-3"></i> Lucknow, Uttar Pradesh , India</p>
+            <p><i class="fas fa-envelope mr-3"></i> asaurabhsingh01.com</p>
+            <p><i class="fas fa-phone mr-3"></i> + 91 9005119328</p>
+            <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+
+    <!-- Copyright -->
+    <div
+         class="text-center p-3"
+         style="background-color: rgba(0, 0, 0, 0.2)"
+         >
+      © 2023 Copyright:
+      <a class="text-white" href="/"
+         >ARCHECK.com</a
+        >
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+
 
 
 
@@ -21,30 +177,23 @@
 {% block css %}
 
 <style>
- body{
-    display:grid;
-    
+  body{
+   background-image: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.3)),url('https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');
+   background-repeat: no-repeat;
    
-    
-    background-color: rgb(237, 239, 241);
-    background-image:url('https://images.unsplash.com/photo-1513530534585-c7b1394c6d51?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80');
-    background-size: cover;
-    
-    background-repeat: no-repeat;
-    background-position: center;
-    color: rgb(19, 18, 23);
-    
-    
-
- }
+  }
+ 
  
  
  .mage{
-  margin:150px;
+  /* margin:150px; */
+  margin-top: 15%;
   width: 55%;
-  border: 3px solid rgb(237, 238, 238);
-  padding: 40px;
-  background-color: #cfd0d3;
+  
+  margin-left: 13%;
+  border: 3px solid rgb(161, 161, 167);
+  padding: 10px;
+  background-color: #c5ccda;
   
   
   

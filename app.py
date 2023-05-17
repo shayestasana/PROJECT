@@ -106,12 +106,12 @@ def login():
                     print("user account found", user)
                     if user.password == password:
                         create_login_session(user)
-                        flash('Login Successfull', "success")
+                        flash('Login Successful', "success")
                         return redirect('/user/dashboard')
                     else:
                         errors['password'] = 'Password is invalid'
                 else:
-                    errors['email']= 'Account does not exists'
+                    errors['email']= 'Account does not exist'
         else:
             errors['email'] = 'Please fill valid details'
             errors['password'] = 'Please fill valid details'
@@ -213,6 +213,7 @@ def admin():
     else:
         flash('Login in admin to access this content','danger')
         return redirect('/')
+    
 @app.route('/user/dashboard', methods=['GET','POST'])    
 def user():
     if session.get('is_logged_in', True):
@@ -223,7 +224,7 @@ def user():
         return render_template('user_dashboard.html', score=score, categories=categories)
 
     else:
-        flash('Login in admin to access this content','danger')
+        flash('Login in as admin to access this content','danger')
         return redirect('/')        
 
 @app.route('/quiz/start/<category>', methods=['GET','POST'])
@@ -237,7 +238,7 @@ def start_quiz(category):
         start_ar_quiz(session['id'], question_ids)
         return redirect('/user/dashboard')
     else:
-        flash('Login in admin to access this content','danger')
+        flash('Login in as admin to access this content','danger')
         return redirect('/')
 
 @app.route('/logout')
@@ -306,6 +307,10 @@ def delete_question(id):
     else:
         flash('Login in admin to access this content','danger')
         return redirect('/')
+
+@app.route('/guidelines')
+def guidelines():
+    return render_template('guidelines.html')
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8000, debug=True)

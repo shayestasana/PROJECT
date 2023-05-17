@@ -2,7 +2,12 @@
 
 {% block body %}
 
+<div>
+    <label id="lblGreetings"></label>
 
+<h3 style="margin-top: 20px; margin-left: 25%;">For Quiz Instruction and Guidelines- <button style="background-color: #f16c38;"> <a href="/guidelines" class="nav-link">Click here</a></button></h3>
+
+</div>
 
 <div class="form-body">
     <div class="row">
@@ -50,13 +55,19 @@
     .rnt {
         padding: 25px;
     }
+    #poi{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
     
     body {
         
         
         background-color: rgb(234, 239, 243);
-        background-image: url('https://images.unsplash.com/photo-1513569771920-c9e1d31714af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80');
+        /* background-image: url('https://images.unsplash.com/photo-1513569771920-c9e1d31714af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'); */
         background-size: cover;
+        background-image: url('https://www.mattfrenchtutor.com/wp-content/uploads/2020/06/livre-crayon-1024x683.jpg');
         background-repeat: no-repeat;
     }
     
@@ -98,7 +109,7 @@
     }
     
     .form-content .form-items {
-        border: 3px solid rgb(241, 231, 231);
+        border: 3px solid rgb(15, 12, 12);
         padding: 50px;
         display: inline-block;
         width: 100%;
@@ -207,4 +218,21 @@
         margin-bottom: 8px !important;
     }
 </style>
+<script>
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+
+    var greet;
+
+    if (hrs < 12)
+        greet = 'Good Morning';
+    else if (hrs >= 12 && hrs <= 17)
+        greet = 'Good Afternoon';
+    else if (hrs >= 17 && hrs <= 24)
+        greet = 'Good Evening';
+
+    document.getElementById('lblGreetings').innerHTML =
+        '<b>' + greet + '</b> and Welcome to the AR QUIZ!';
+</script>
+{% block js %}{% endblock %}
 {% endblock %}

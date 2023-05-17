@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row form-row">
         <div class="col-lg-4 ">
-            <h1 class="my-4 display-4 text-center">Sign In</h1>
+            <center><h1 class="my-4 text-primary">Sign In</h1></center>
             <form class="shadow-lg p-3 rounded bg-light" method="post">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
@@ -33,12 +33,6 @@
 </div>
 
 
-
-
-
-
-
-
 {% endblock %}
 
 {% block css %}
@@ -46,16 +40,23 @@
     .form-row {
         display: flex;
         height: 90vh;
-        justify-content: center;
+        justify-content: center ;
         align-items: center;
     }
-
     h1 {
-        color: rgb(255, 147, 69);
+        color: rgb(189, 43, 80);
     }
 
     main {
-        background-color: #efefef;
+        background-image: url('https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80');
+        background-position: bottom;
+        background-size: cover;
     }
+    .text-center{
+        color: rgb(15, 15, 15);
+        
+        
+    }
+    
 </style>
 {% endblock %}
