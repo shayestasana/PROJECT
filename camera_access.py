@@ -57,7 +57,6 @@ class Score(Base):
         return f'{self.score}'
 
 # For webcam input:
-cap = cv2.VideoCapture(0)
 question = 0
 quiz_started = 0
 question_list = []
@@ -203,6 +202,8 @@ def check_answer(question, option_selected, user_id):
     global score_start
     session = open_db()
     quiz = session.query(Quiz).get(question)
+    print(f'question no is {question}')
+    print(f'question is {quiz.question} and answer is {quiz.answer}')
     # load score of user
     score = session.query(Score).filter(Score.user_id == user_id).order_by(Score.id.desc()).first()
     if score is None:
@@ -212,6 +213,7 @@ def check_answer(question, option_selected, user_id):
         score.score = 0
         score_start = False
     # if answer is correct add 10 to score
+    print(f'option selected is {option_selected} and answer is {quiz.answer} : {option_selected == quiz.answer}: score:{score}')
     if option_selected == 'option_A' and quiz.answer == quiz.option_A:
         score.score += 10
     elif option_selected == 'option_B' and quiz.answer == quiz.option_B:
@@ -233,10 +235,12 @@ def check_answer(question, option_selected, user_id):
 def start_ar_quiz(user_id, questions):
     global question, question_list, quiz_started
     question_list = questions
+    question =0
     with mp_hands.Hands(
         model_complexity=0,
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as hands:
+        cap = cv2.VideoCapture(0)
         while cap.isOpened():
             success, image = cap.read()
         
@@ -282,17 +286,19 @@ def start_ar_quiz(user_id, questions):
                             if dis < 30:
                                 # display joined
                                 # check if the coords fall in an option box
+                                print(f'x1 = {x1}, y1 = {y1}')
+                                print(f'question = {question_list[question]}')
                                 if x1 > 230 and x1 < 410 and y1 > 20 and y1 < 100:
-                                    # print("A")
+                                    print("A")
                                     question = check_answer(question, option_selected='option_A', user_id=user_id)
                                 elif x1 > 440 and x1 < 620 and y1 > 20 and y1 < 100:
-                                    # print("B")
+                                    print("B")
                                     question = check_answer(question, option_selected='option_B',user_id=user_id)
                                 elif x1 > 230 and x1 < 410 and y1 > 130 and y1 < 210:
-                                    # print("C")
+                                    print("C")
                                     question = check_answer(question, option_selected='option_C',user_id=user_id)
                                 elif x1 > 440 and x1 < 620 and y1 > 130 and y1 < 210:
-                                    # print("D")
+                                    print("D")
                                     question = check_answer(question, option_selected="option_D",user_id=user_id)
                                 cv2.putText(image, "Selector", (28, 230), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                             else:
